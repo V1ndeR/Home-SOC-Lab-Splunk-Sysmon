@@ -1,0 +1,46 @@
+/*
+Investigation #001 — Windows Authentication Analysis
+SIEM: Splunk Enterprise
+Source: Windows Security Event Logs
+
+Each query is intended to be executed separately.
+*/
+
+/* Query 1 — Count Windows Security Events */
+
+index=* host="DESKTOP-F2EIULL" source="WinEventLog:Security"
+| stats count by EventCode
+| sort - count
+
+
+/* Query 2 — Investigate Failed Logons */
+
+index=* host="DESKTOP-F2EIULL" source="WinEventLog:Security" EventCode=4625
+| table _time host EventCode Account_Name Logon_Type Source_Network_Address Failure_Reason Status Sub_Status
+| sort _time
+
+
+/* Query 3 — Correlate Failed and Successful Logons */
+
+index=* host="DESKTOP-F2EIULL" source="WinEventLog:Security"
+(EventCode=4624 OR EventCode=4625)
+earliest="10/15/2026:18:15:00" latest="10/15/2026:18:30:00"
+| search "Anr"
+| table _time EventCode Account_Name Logon_Type Source_Network_Address
+| sort _time
+
+
+/* Query 4 — Examine Successful Logon Records */
+
+index=* host="DESKTOP-F2EIULL" source="WinEventLog:Security"
+EventCode=4624
+(RecordNumber=70740 OR RecordNumber=70741)
+| table _time RecordNumber Account_Name Logon_Type Logon_ID Linked_Logon_ID Elevated_Token Source_Network_Address
+| sort RecordNumber
+
+
+/* Query 5 — Inspect Raw Authentication Events */
+
+index=* host="DESKTOP-F2EIULL" source="WinEventLog:Security"
+EventCode=4624
+(RecordNumber=70740 OR RecordNumber=70741)
