@@ -98,3 +98,36 @@ before classifying it as malicious.
 
 The investigation was performed in a controlled
 personal SOC laboratory.
+
+## Investigation Evidence — Splunk Screenshots
+
+The following screenshots document the authentication investigation
+performed in Splunk Enterprise.
+
+### 1. Failed Authentication Attempts
+
+Four Windows Security Event ID 4625 records showing failed
+interactive logon attempts.
+
+![Failed Logons](../screenshots/01-failed-logons.png)
+
+### 2. Authentication Timeline
+
+Four failed authentication events followed by two related
+successful logon events.
+
+![Authentication Timeline](../screenshots/02-authentication-timeline.png)
+
+### 3. Standard Logon Session
+
+Windows Event ID 4624, Record 70741.
+The event shows a non-elevated token and a linked logon session.
+
+![Standard Logon Session](../screenshots/03-linked-logon-standard.png)
+
+### 4. Elevated Logon Session
+
+Windows Event ID 4624, Record 70740.
+The event shows an elevated token and a linked logon session.
+
+![Elevated Logon Session](../screenshots/04-linked-logon-elevated.png)
