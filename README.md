@@ -85,3 +85,23 @@ Note: SPL field names and index names depend on the event source and parsing con
 ## Disclaimer
 
 This repository documents personal cybersecurity training conducted in an isolated lab environment. It does not represent professional SOC employment or production security operations.
+
+## Documented Investigations
+
+### Investigation #001 — Windows Authentication Analysis
+
+Analyzed Windows Security Event Logs using Splunk Enterprise.
+
+The investigation covered four failed authentication attempts
+followed by two related successful logon events.
+
+The activity was confirmed as authorized testing in a personal lab.
+
+**Investigation Report:**  
+[View Investigation #001](investigations/001-windows-authentication-analysis.md)
+
+**SPL Queries:**  
+[View Authentication Queries](spl-queries/windows-authentication.spl)
+
+**Evidence:**  
+[View Splunk Screenshots](screenshots/)
